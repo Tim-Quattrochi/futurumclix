@@ -623,7 +623,7 @@
 		</div>
 		<div class="row">
 		<div class="col-md-12 text-right footer">
-		<?=__d('admin', 'FuturumClix.com - all right reserved')?>
+		<?=__d('admin', 'Surveycommission.com -  all right reserved')?>
 		</div>
 		</div>
 		<!-- End container -->

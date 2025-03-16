@@ -1,0 +1,31 @@
+services:
+  web:
+    image: webdevops/php-nginx:5.6
+    platform: linux/amd64
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app
+      - ./nginx.conf:/opt/docker/etc/nginx/vhost.conf
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/app/webroot
+      - PHP_DISPLAY_ERRORS=1
+    command: |
+      sh -c "mkdir -p /app/app/tmp/cache/persistent /app/app/tmp/cache/models /app/app/tmp/logs && 
+      chown -R application:application /app/app/tmp && 
+      chmod -R 777 /app/app/tmp && 
+      /opt/docker/bin/entrypoint.sh supervisord"
+
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=futurumclix
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
